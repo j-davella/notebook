@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notebook</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Notebook</h1>
+    <p>Type your notes below. They will be saved automatically and persist even after you close the site.</p>
+    <textarea id="notebook" placeholder="Start typing your notes here..."></textarea>
+    <button onclick="clearNotes()">Clear Notes</button>
+
+    <script>
+        // Get the textarea element
+        const notebook = document.getElementById('notebook');
+
+        // Load saved notes from localStorage
+        notebook.value = localStorage.getItem('notes') || '';
+
+        // Save notes to localStorage whenever the content changes
+        notebook.addEventListener('input', () => {
+            localStorage.setItem('notes', notebook.value);
+        });
+
+        // Function to clear notes
+        function clearNotes() {
+            if (confirm("Are you sure you want to clear all your notes? This action cannot be undone.")) {
+                notebook.value = '';
+                localStorage.removeItem('notes');
+            }
+        }
+    </script>
+</body>
+</html>
